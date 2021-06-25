@@ -1,13 +1,20 @@
-echo "Welcome to empWage"
+#! /bin/bash -x
 
-isPresent=1;
-isabsent=0;
-randomChek=$((RANDOM%2));
+echo "Welcome Message"
 
-if [ $isPresent -eq $randomChek ];
+isPresent=1
+isAbsent=0
+empWagePerHrs=20
+empDayHrs=8
+checkAvail=$((RANDOM%2))
+
+
+if [[ $isPresent -eq $checkAvail ]]
 then
-        echo "emp is present"
+        echo "Employee is Present"
+        totalSalary=$(( $empWagePerHrs * $empDayHrs ))
+        echo "Total Salary of emp is :" $totalSalary
 else
-        echo "emp is absent"
+        echo "Employee is Absent"
 
 fi
