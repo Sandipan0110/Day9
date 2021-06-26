@@ -1,3 +1,4 @@
+#!/bin/bash -x
 
 isPartTime=1;
 isFullTime=2;
@@ -36,3 +37,4 @@ do
 done
 
 totalSalary="$( getEmpWage $totalEmpHrs )"
+
