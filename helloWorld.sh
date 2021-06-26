@@ -1,35 +1,38 @@
-#! /bin/bash -x
-
-echo "Welcome Message"
 
 isPartTime=1;
 isFullTime=2;
 maxHrsInMonth=100;
-empRatePerHrs=20;
+empRatePerHr=20;
 numWorkingDays=20;
 
-totalWorkingHours=0;
+totalEmpHrs=0;
 totalWorkingDays=0;
-
-function getWorkingHours() {
+function getWorkHrs() {
         case $1 in
                 $isFullTime)
-                        workHours=8
+                        empHrs=8
                         ;;
                 $isPartTime)
-                        workHours=4
+                        empHrs=4
                         ;;
                 *)
-                        workHours=0
+                        empHrs=0
                         ;;
         esac
+        echo $empHrs
 }
-while [[ $totalWOrkingHours -lt $maxHrsInMonth &&
-        $totalWorkingHours -lt $numWorkingDays ]]
+
+function getEmpWage() {
+        echo $(($1*$empRatePerHr))
+}
+
+while [[ $totalEmpHrs -lt $maxHrsInMonth && $totalWorkingDays -lt $numWorkingDays ]]
 do
         ((totalWorkingDays++))
-        getWorkingHours $((RANDOM%3))
-        totalWorkingHours=$(($totalWorkingHours+$workHours));
+        empCheck=$((RANDOM%3));
+        empHrs="$(getWorkHrs $empCheck)"
+        totalEmpHrs=$(($totalEmpHrs+$empHrs))
+        dailyWages[$totalWorkingDays]=$(($empHrs*$empRatePerHr))
 done
 
-totalsalary=$(($totalWorkingHours*$empRatePerHrs));
+totalSalary="$( getEmpWage $totalEmpHrs )"
